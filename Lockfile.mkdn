@@ -1,0 +1,13 @@
+Lockfile
+
+version
+
+generated
+
+packages
+
+checksums
+
+resolved
+
+integrity
