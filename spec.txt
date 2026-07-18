@@ -1,0 +1,39 @@
+SEMVER SPECIFICATION
+
+Grammar: - MAJOR.MINOR.PATCH - Optional prerelease: -alpha, -beta.1,
+-rc.1 - Optional build metadata: +build.1
+
+Version Structure: Version { major: Integer minor: Integer patch:
+Integer prerelease: List build: List }
+
+Project Layout: grammar/ semver.bnf
+
+runtime/ semver_parser semver_validator semver_compare
+semver_constraints
+
+spec/ semver.md
+
+Public API: parse(version: String) -> Version validate(version: String)
+-> Bool compare(a: Version, b: Version) -> Int equal(a: Version, b:
+Version) -> Bool less(a: Version, b: Version) -> Bool greater(a:
+Version, b: Version) -> Bool incrementMajor(version: Version) -> Version
+incrementMinor(version: Version) -> Version incrementPatch(version:
+Version) -> Version parseConstraint(constraint: String)
+satisfies(version: Version, constraint: String) -> Bool sort(list)
+toString(version: Version) -> String
+
+Constraint Syntax: >1.0.0 >=1.0.0 <2.0.0 <=2.0.0 ^1.2.3 ~1.2.3 1. 1.2.
+
+Runtime Modules: Lexer Parser Validator Comparator Constraint Engine
+Dependency Resolver Registry Downloader Cache Installer CLI
+
+Package Manager Pipeline: Manifest â Parse Version â Validate â Resolve
+Dependencies â Compare Versions â Download â Verify â Install
+
+CLI: pkg init pkg install pkg uninstall pkg update pkg publish pkg
+search pkg resolve pkg verify pkg version
+
+Valid Examples: 1.0.0 1.2.3 1.2.3-alpha 1.2.3-alpha.1 1.2.3+build
+1.2.3-alpha+001
+
+Invalid Examples: 1 1.2 01.2.3 1.02.3 1.2.03 1.2.3- 1.2.3+ 1.2.3-alpha..
