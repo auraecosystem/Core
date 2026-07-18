@@ -1,0 +1,41 @@
+Read Manifest
+
+↓
+
+Validate Manifest
+
+↓
+
+Validate SemVer
+
+↓
+
+Resolve Dependencies
+
+↓
+
+Download Packages
+
+↓
+
+Verify SHA256
+
+↓
+
+Verify Signature
+
+↓
+
+Extract
+
+↓
+
+Install
+
+↓
+
+Run Hooks
+
+↓
+
+Finish
