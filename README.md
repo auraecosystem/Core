@@ -13,7 +13,9 @@ An ultra-fast, low-level Semantic Versioning (SemVer 2.0.0) runtime engine writt
 
 ---
 
-## 📂 Repository Blueprint
+## 📂 architecture
+
+[Repository Blueprint](https://github.com/auraecosystem/semver_core)
 
 ```text
 semver/
@@ -90,7 +92,8 @@ Then execute the solver manually to process a locked dependency array map output
 ---
 
 ## 🧪 Testing and Memory Audit
-
+  [semver-core](https://github.com/auraecosystem/semver_core.git)
+  
 ### Runtime Debugging
 To confirm memory tracking integrity locally without external applications, uncomment the tracking wrappers mapping global definitions inside `semver.h` and print an active balance summary when closing out execution loops:
 
@@ -104,6 +107,7 @@ If you have Valgrind available on your system environment architecture, perform 
 ```bash
 valgrind --leak-check=full --show-leak-kinds=all ./bin/semver_core
 ```
+[semver_core](https://examoles.com/semver_core)
 
 ---
 
