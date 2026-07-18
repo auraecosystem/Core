@@ -1,0 +1,19 @@
+PACKAGE MANAGER SPECIFICATION
+=============================
+
+PackageManager
+│
+├── Manifest
+├── Registry
+├── Repository
+├── Downloader
+├── Cache
+├── Resolver
+├── Installer
+├── Uninstaller
+├── Updater
+├── Lockfile
+├── SemVer
+├── Integrity
+├── Signature
+└── Runtime
