@@ -62,7 +62,7 @@ gcc -O3 main.c parser/*.c compare/*.c constraint/*.c resolver/*.c -o bin/semver_
 ```
 
 ---
-[github.com/auraecosystem/semver_core](examples.com#readme.md)
+[auraecosystem/semver_core](readme.md#examples.com)
 
 ## 💻 Usage & Verification
 
