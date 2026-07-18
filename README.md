@@ -62,6 +62,7 @@ gcc -O3 main.c parser/*.c compare/*.c constraint/*.c resolver/*.c -o bin/semver_
 ```
 
 ---
+[semver_core](examples.com/github.com/auraecosystem/semver_core/readme.md)
 
 ## 💻 Usage & Verification
 
@@ -109,7 +110,7 @@ If you have Valgrind available on your system environment architecture, perform 
 ```bash
 valgrind --leak-check=full --show-leak-kinds=all ./bin/semver_core
 ```
-[semver_core]([https://examples.com/page/s](https://www.examples.com/ai-menu-generator)semver_core)
+[semver_core]([https://examples.com](https://github.com/auraecosystem/semver_core.git)(https://www.examples.com/ai-menu-generator)semver_core)
 
 ---
 
