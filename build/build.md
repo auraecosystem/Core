@@ -1,5 +1,5 @@
 # Build
-
+ 
 This plugin can be built with Bazel, and two build modes are supported:
 
 * Standalone
