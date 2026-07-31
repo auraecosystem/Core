@@ -57,7 +57,7 @@
           "challenge": "tpm_nonce_abc",
           "pcr_digest": "sha256:0123456789abcdef",
           "pcr_selection": [0, 7, 14]
-        },
+        }, 
         "timestamp": 1711000000,
         "challenge_issued_at": 1710999950,
         "challenge_ttl": 300,
