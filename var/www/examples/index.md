@@ -1,5 +1,17 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2900
-\cocoatextscaling1\cocoaplatform1{\fonttbl\f0\froman\fcharset0 TimesNewRomanPSMT;\f1\froman\fcharset0 TimesNewRomanPS-BoldMT;\f2\fmodern\fcharset0 Courier ;}
+# Project Name
+
+Brief description of what your project does and its core goals.
+
+## Architecture & Design
+* **Component 1:** Description
+* **Component 2:** Description
+
+## Setup & Usage
+```rtf
+# Add your getting started commands here
+{\rtf\ansi\ansicpg1252\cocoartf2900
+\cocoatextscaling1\cocoaplatform1{\fonttbl\f0\froman\fcharset0TimesNewRomanPSMT;\f1\froman\fcharset0 TimesNewRomanPSBoldMT;\f2\fmodern\fcharset0 Courier;
+}
 {\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
 {\*\expandedcolortbl;;\cssrgb\c0\c0\c0;}
 {\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid1\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}
@@ -135,6 +147,4 @@ I would call the architecture
 \pard\pardeftab720\sa240\partightenfactor0
 \cf2 \strokec2 That\'92s an ambitious but technically achievable vision if it\'92s built incrementally with a strong core and clear module boundaries. The next practical step is to create the Rust workspace, define the kernel interfaces, and get the first CLI command (
 \f2 \cf2 \strokec2 aegis init
-\f0 \cf2 \strokec2 ) working end to end before adding more advanced capabilities.\
-}
-
+\f0 \cf2 \strokec2 ) working end to end before adding more advanced capabilities.\}
