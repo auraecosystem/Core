@@ -1,0 +1,140 @@
+
+ias3 Internet archive S3-like API
+This document is intended for a user who is comfortable in the unix command line environment. It covers the technical details of using the archive’s S3 like server API.
+
+The internet archive has a public facing API which allows for the storage and retrieval of item data stored in the archive.
+
+Amazon s3 documentation used when creating the IA S3 api endpoint can be found here.
+Information about archive items can be found here.
+To get api keys for the archive’s S3-Like API go to the API key page
+What the S3-like API does:
+
+Items (things with details pages) get mapped to S3 Buckets. For example, http://archive.org/details/stats is also available as https://s3.us.archive.org/stats, or, per s3 dns bucket style http://stats.s3.us.archive.org/
+Files within items are also available as S3 keys, For example http://stats.s3.us.archive.org/downloadsPerDay.png
+Doing a PUT on the S3 endpoint will result in a new internet archive Item
+Files may also be uploaded to an Item in the same way keys are added, via S3 PUT.
+When a file is added to an Item, it is staged in temporary storage and ingested via the Archive’s content management system. This can take some time.
+ias3 has support for multipart uploads.
+Python Library
+
+The internet archive maintains a python library for accessing this api, see jjjake/internetarchive .
+
+POST Support
+
+For using the POST support these documents are very useful:
+http://aws.amazon.com/articles/1434
+http://docs.amazonwebservices.com/AmazonS3/latest/dev/HTTPPOSTForms.html
+http://docs.amazonwebservices.com/AmazonS3/2006-03-01/API/RESTObjectPOST.html?r=8499
+How this is different from normal S3
+
+DELETE bucket is not allowed.
+Only the HTTP 1.1 REST interface is supported.
+Archive is much more likely to issue 307 Location redirects than Amazon is.
+Which means clients with good 100-Continue support are very nice to have
+curl versions curl-7.19 and newer have excellent 100-continue support
+curl versions curl-7.58 and newer need to add --location-trusted flag if you are including an Authorization header
+ACLs are fake. permissions are: World readable, Item uploader writable.
+HTTP 1.1 Range headers are ignored (also copy range headers for multipart).
+There are special features of the archive s3 connector to support activities with Internet Archive items. These are used by adding http headers to a request.
+
+There is a combined upload and make item feature, set the header: x-archive-auto-make-bucket:1 when doing a PUT of a file.
+
+An HTTP header can specify metadata that ends up in _meta.xml at make bucket time.
+Add headers of form x-archive-meta-$meta_name:$meta_value (or x-amz-meta-$meta_name:$meta_value)
+If you want multiple tags in _meta.xml you can put numbers in front: x-amz-meta01-$meta_name:$meta_value_a x-amz-meta02-$meta_name:$meta_value_b
+Meta headers are sorted prior to tag generation when placed in the xml
+Meta headers are interpreted as having utf-8 character encoding
+Because rfc822 http headers disallow _ in names, in $meta_name two hyphens in a row (--) will be translated to an underscore(_).
+Some http clients do not allow the full range of utf-8 bytes to appear in http headers. As a work around, one can encode a utf-8 meta header with uri encoding. To do this write all the header data like so: uri($payload_as_uri_encoded_utf8) For example, to set the title of an item to include the unicode snowman: x-archive-meta-title:uri(This%20is%20a%20snowman%20%E2%98%83)
+to update metadata use the Item Metadata API API
+Skip request signing
+
+There is an optional simple way to authorize a request; Authorization header can be of form Authorization: LOW $accesskey:$secret Be sure to use https when using the simple mode.
+
+Skip derive process
+
+Normally a PUT (aka file upload) to IA will cause the derive process to be queued for that bucket/item. The derive process produces a number of secondary files from an upload to make an upload more usable on the web. For example, the derive process creates image data to make a PDF file viewable in the in browser bookviewer on the archive.org website. You can prevent this (heavyweight process) by specifying a header like so with each upload: x-archive-queue-derive:0
+
+Delete derived files when an original is deleted
+
+DELETE normally deletes a single file, additionally all the derivatives and originals related to a file can be automatically deleted by specifying a header with the DELETE like so: x-archive-cascade-delete:1
+
+Keep old versions of files
+
+Normally PUT and DELETE do not keep old versions of files around. To have the archive keep old versions of the object you can add the header: x-archive-keep-old-version:1 Saved versions will be placed in history/files/$key.~N~ (For multipart, the x-archive-keep-old-version header must be specified at the time the multipart upload is completed)
+
+Hint the archive about the final size of an item
+
+For large items a size hint can be given to the IA content management system at make bucket time. Units are in bytes, for example: x-archive-size-hint:19327352832
+
+Express queue
+
+For uploads which need to be available ASAP in the content management system, an interactive user’s upload for example, one can request interactive queue priority: x-archive-interactive-priority:1 Do not perform multiple transactions on items with mixed settings for x-archive-interactive-priority. Doing so can result in reordering of the application of requests to the item state.
+
+Dealing with API errors
+
+To help developers test the error processing of software interacting with the S3-like API, there is an error simulation feature. To simulate errors s3 supports a special ‘error this request’ header. For example, to simulate a Slowdown error that the s3 api may generate you can set an http header like so (in addition to any other headers you may normally send in a request): x-archive-simulate-error:SlowDown
+
+For example:
+
+$ curl s3.us.archive.org -v -H x-archive-simulate-error:SlowDown
+
+To see a list of errors s3 can simulate, you can do:
+
+$ curl s3.us.archive.org -v -H x-archive-simulate-error:help
+
+Use Limits
+
+Sometimes the task queue system which processes PUTs and DELETEs becomes overloaded, and the endpoint returns a 503 SlowDown error instead of processing an upload or delete. To check if an upload would fail because of overload you can call:
+
+$ curl https://s3.us.archive.org/?check_limit=1&accesskey=$accesskey&bucket=$bucket
+
+The result is a json object with 4 fields:
+bucket, accesskey, over_limit, and detail
+detail contains internal information about the current rate limiting scheme, it may change at any time.
+The over_limit field will be either 0 to indicate that the queue is ready for more uploads or deletes, or 1, indicating that uploads or deletes are likely to get a 503 SlowDown error. The fields bucket and accesskey are the query arguments passed in.
+Examples
+
+These features combined allow single command document upload with curl. (Most users would probably use the internetarchive command line tool instead, these are examples for developers of new library code.)
+
+Text item (a PDF will be OCR’d):
+
+curl --location --header 'x-amz-auto-make-bucket:1' \
+     --header 'x-archive-meta01-collection:opensource' \
+     --header 'x-archive-meta-mediatype:texts' \
+     --header 'x-archive-meta-sponsor:Andrew W. Mellon Foundation' \
+     --header 'x-archive-meta-language:eng' \
+     --header "authorization: LOW $accesskey:$secret" \
+     --upload-file /home/samuel/public_html/intro-to-k.pdf \
+     https://s3.us.archive.org/sam-s3-test-08/demo-intro-to-k.pdf
+
+Movie item (Will get video player on details page):
+
+curl --location --header 'x-amz-auto-make-bucket:1' \
+     --header 'x-archive-meta01-collection:opensource_movies' \
+     --header 'x-archive-meta-mediatype:movies' \
+     --header 'x-archive-meta-title:Ben plays piano.' \
+     --header "authorization: LOW $accesskey:$secret" \
+     --upload-file ben-2009-05-09.avi \
+     https://s3.us.archive.org/ben-plays-piano/ben-plays-piano.avi
+
+Upload a file to an existing item:
+
+curl --location \
+     --header "authorization: LOW $accesskey:$secret" \
+     --upload-file /home/samuel/public_html/intro-to-k.pdf \
+     https://s3.us.archive.org/sam-s3-test-08/demo-intro-to-k.pdf
+
+Fast GET downloads
+
+Although the s3 interface supports GET and HEAD, high performance downloads are achieved via the archive web infrastructure:
+
+curl --location http://archive.org/download/sam-s3-test-08/demo-intro-to-k.pdf
+
+note: curl versions curl-7.58 and newer need to add --location-trusted flag if you are including an Authorization header.
+
+Bucket activity
+
+After an object had been PUT into a bucket, many things happen in the archive’s petabox content management system (called the catalog). You can see the catalog page for a bucket by looking at:
+
+https://archive.org/history/$bucket
