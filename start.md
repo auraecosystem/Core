@@ -1,8 +1,7 @@
-{\#AEGIS OS
+```console
 
-
-
-                           AEGIS OS
+                      AEGIS OS
+                         |
  ┌──────────────────────────────────────────────────────┐
  │                    AEGIS KERNEL                      │
  ├──────────────────────────────────────────────────────┤
@@ -25,18 +24,18 @@
  └─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘
                   CLI • IDE • Git • CI/CD • Cloud
 
-Project goals
+  ```
+# Project goals
 
-* Universal security engine.
-* Cross-platform (Windows, Linux, macOS).
-* Language-independent architecture.
-* Plugin-based design.
-* Offline-first.
-* AI-assisted security analysis.
-* Supply-chain security.
-* Enterprise-ready.
-
-Technology stack
+* - Universal security engine.
+* - Cross-platform (Windows, Linux,  Language-independent architecture.
+* - Plugin-based design.
+* - Offline-first.
+* - AI-assisted security analysis.
+* - Supply-chain security.
+* - Enterprise-ready.
+ 
+# Technology stack
 
 * Core: Rust
 * CLI: Rust
@@ -47,7 +46,7 @@ Technology stack
 * SDKs: Swift, Go, Python, JavaScript/TypeScript, Java, Kotlin, C#, Dart
 * Policies: YAML or TOML
 
-Long-term vision
+# Long-term vision
 
 The platform would eventually include:
 
@@ -65,4 +64,4 @@ The platform would eventually include:
 * Aegis Mobile
 * Aegis Web
 * Aegis Enterprise
-}
+
