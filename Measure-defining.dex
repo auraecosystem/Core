@@ -10,3 +10,4 @@ DIVIDE(
         SAMEPERIODLASTYEAR('Date'[Date])
     )
 )
+    
