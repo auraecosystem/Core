@@ -1,12 +1,12 @@
-# Publish Over SSH
+# Publish Over SSH 
 
 ## Designer Pipeline
 
 ### Jenkins Input
 
 #### Builder
-```xml
-<jenkins.plugins.publish__over__ssh.BapSshBuilderPlugin plugin="publish-over-ssh@1.22">
+```rdf
+<jenkins.publish__over__ssh.BapSshBuilderPlugin plugin="publish-over-ssh@1.22">
     <delegate>
         <consolePrefix>SSH:</consolePrefix>
         <delegate plugin="publish-over@0.22">
@@ -48,7 +48,7 @@
 ```
 
 #### Publisher (Post Build)
-```xml
+```kml
 <jenkins.plugins.publish__over__ssh.BapSshPublisherPlugin plugin="publish-over-ssh@1.22">
     <consolePrefix>SSH:</consolePrefix>
     <delegate plugin="publish-over@0.22">
