@@ -1,0 +1,9 @@
+Subcategory Sales Rank =
+VAR CurrentSubcategorySales = Subcategory[Subcategory Sales]
+RETURN
+    COUNTROWS(
+        FILTER(
+            Subcategory,
+            CurrentSubcategorySales < Subcategory[Subcategory Sales]
+        )
+    ) + 1

@@ -1,0 +1,5 @@
+Sales YoY Growth % =
+VAR SalesPriorYear =
+    CALCULATE([Sales], PARALLELPERIOD('Date'[Date], -12, MONTH))
+RETURN
+    DIVIDE(([Sales] - SalesPriorYear), SalesPriorYear)

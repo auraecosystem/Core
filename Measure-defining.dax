@@ -1,0 +1,12 @@
+Revenue YoY % =
+DIVIDE(
+    [Revenue]
+        - CALCULATE(
+            [Revenue],
+            SAMEPERIODLASTYEAR('Date'[Date])
+    ),
+    CALCULATE(
+        [Revenue],
+        SAMEPERIODLASTYEAR('Date'[Date])
+    )
+)

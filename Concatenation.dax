@@ -1,0 +1,1 @@
+Model Color = 'Product'[Model] & "-" & 'Product'[Color]
