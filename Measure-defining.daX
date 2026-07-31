@@ -1,0 +1,16 @@
+Revenue YoY % = 
+VAR CurrentRevenue = [Revenue]
+VAR PreviousYearRevenue = 
+    CALCULATE(
+        [Revenue], 
+        SAMEPERIODLASTYEAR('Date'[Date])
+    )
+RETURN
+    IF(
+        ISBLANK(CurrentRevenue) || ISBLANK(PreviousYearRevenue),
+        BLANK(),
+        DIVIDE(
+            CurrentRevenue - PreviousYearRevenue, 
+            PreviousYearRevenue
+        )
+    )
