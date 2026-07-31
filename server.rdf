@@ -35,3 +35,4 @@
         <hostConfigurationAccess class="jenkins.plugins.publish_over_ssh.BapSshPublisherPlugin" reference="../.."/>
     </delegate>
 </jenkins.plugins.publish__over__ssh.BapSshPublisherPlugin>
+
