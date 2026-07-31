@@ -1,4 +1,4 @@
-# Project Name
+# Aegis
 
 Brief description of what your project does and its core goals.
 
@@ -7,11 +7,10 @@ Brief description of what your project does and its core goals.
 * **Component 2:** Description
 
 ## Setup & Usage
-```rtf
+```markdown
 # Add your getting started commands here
-{\rtf\ansi\ansicpg1252\cocoartf2900
-\cocoatextscaling1\cocoaplatform1{\fonttbl\f0\froman\fcharset0TimesNewRomanPSMT;\f1\froman\fcharset0 TimesNewRomanPSBoldMT;\f2\fmodern\fcharset0 Courier;
-}
+
+{\rtf\ansi\ansicpg1252\cocoartf2900\cocoatextscaling1\cocoaplatform1{\fonttbl\f0\froman\fcharset0TimesNewRomanPSMT;\f1\froman\fcharset0TimesNewRomanPSBoldMT;\f2\fmodern\fcharset0 Courier ;}
 {\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
 {\*\expandedcolortbl;;\cssrgb\c0\c0\c0;}
 {\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid1\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}
