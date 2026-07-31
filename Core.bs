@@ -1,0 +1,12 @@
+<pre class='metadata'>
+Title: webmodelcore
+Status: ED
+Shortname: my-spec
+Level: 1
+Editor: seriki walter yakub
+Abstract: A brief summary of what this document specifies.
+</pre>
+
+# Introduction # {#intro}
+
+Write your main specification content here using standard **Markdown** and **HTML**.
